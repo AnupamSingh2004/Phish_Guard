@@ -1,0 +1,15 @@
+# --- legitimate ---
+https://www.wikipedia.org/wiki/Phishing
+https://accounts.google.com/signin
+https://github.com/python/cpython/pulls
+https://www.paypal.com/signin
+# --- phishing: one per technique ---
+http://paypa1-secure-login.xyz/verify/account
+https://paypal.com.account-verify.top/login
+https://www.paypal.com@evil-host.tk/signin
+http://185.220.101.7:8080/chase/login.php
+https://xn--pypal-4ve.com/signin
+https://amazon-wallet-update.pages.dev/password
+http://x7f3k9.click/microsoft-update-12.exe
+https://secure.login.verify.apple.k2j4h5.top/id
+https://bit.ly/3xYz9Qa

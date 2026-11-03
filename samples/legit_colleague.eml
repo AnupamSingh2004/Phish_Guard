@@ -1,0 +1,16 @@
+From: "Sara Miller" <sara.miller@company-example.com>
+To: user@recipient.example
+Subject: Meeting notes - Q3 sprint review
+Date: Tue, 03 Nov 2026 14:20:00 +0000
+Message-ID: <m1@company-example.com>
+Authentication-Results: mx.recipient.example; spf=pass smtp.mailfrom=company-example.com; dkim=pass header.d=company-example.com; dmarc=pass header.from=company-example.com
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+
+Hi team,
+
+Thanks for joining the call today. The notes are in the shared drive. Are we still on for
+lunch on Thursday? Let me know if I missed anything.
+
+Regards,
+Sara

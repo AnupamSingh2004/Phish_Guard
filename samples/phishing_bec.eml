@@ -1,0 +1,16 @@
+From: "Michael Torres (CEO)" <michael.torres.ceo@gmail.com>
+To: finance@recipient.example
+Subject: Request
+Date: Tue, 03 Nov 2026 10:02:00 +0000
+Message-ID: <bec1@mail.gmail.com>
+Authentication-Results: mx.recipient.example; spf=pass smtp.mailfrom=gmail.com; dkim=pass header.d=gmail.com; dmarc=pass header.from=gmail.com
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+
+Hi Anita,
+
+Please process an urgent wire transfer of $48,500 to the vendor below today. Do not discuss
+with anyone, I'm travelling and cannot take calls. Send confirmation to my personal email.
+
+Michael
+CEO
