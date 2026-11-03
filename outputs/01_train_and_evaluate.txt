@@ -1,0 +1,47 @@
+01:42:35 | INFO    | phishguard.eval    | Generated 7882 URLs and 2400 e-mails (seeded, reproducible)
+01:42:35 | INFO    | phishguard.eval    | Group split by registered domain: train=5865 test=2017  overlapping domains=0 (must be 0)
+01:42:38 | INFO    | phishguard.models  | URL training set: 5865 samples x 30 features (phishing=50.5%)
+01:42:39 | INFO    | phishguard.models  |   5-fold CV F1  logreg         0.9661 +/- 0.0030
+01:42:41 | INFO    | phishguard.models  |   5-fold CV F1  random_forest  0.9922 +/- 0.0015
+01:42:45 | INFO    | phishguard.models  |   5-fold CV F1  grad_boost     0.9932 +/- 0.0027
+01:42:47 | INFO    | phishguard.models  | URL ensemble trained + saved -> url_model.joblib (11.6s)
+01:42:48 | INFO    | phishguard.eval    | === URL detection - held-out test set (unseen domains) ===
+01:42:48 | INFO    | phishguard.eval    | rules_only           acc=0.6847 prec=1.0000 rec=0.3740 f1=0.5444 auc=0.8890 FPR=0.0000
+01:42:48 | INFO    | phishguard.eval    | ml_only              acc=0.9494 prec=0.9303 rec=0.9724 f1=0.9509 auc=0.9868 FPR=0.0739
+01:42:48 | INFO    | phishguard.eval    | HYBRID (production)  acc=0.9098 prec=0.9707 rec=0.8465 f1=0.9043 auc=0.9877 FPR=0.0260
+01:43:17 | INFO    | phishguard.eval    | member:logreg        acc=0.9331 prec=0.9144 rec=0.9567 f1=0.9351 auc=0.9465 FPR=0.0909
+01:43:17 | INFO    | phishguard.eval    | member:random_forest acc=0.9122 prec=0.9656 rec=0.8563 f1=0.9077 auc=0.9863 FPR=0.0310
+01:43:17 | INFO    | phishguard.eval    | member:grad_boost    acc=0.9400 prec=0.9374 rec=0.9439 f1=0.9407 auc=0.9864 FPR=0.0639
+01:43:17 | INFO    | phishguard.eval    | HYBRID flagged>=WARN acc=0.9544 prec=0.9239 rec=0.9911 f1=0.9563 auc=0.9877 FPR=0.0829
+01:43:17 | INFO    | phishguard.eval    | Recall by attack technique:
+01:43:17 | INFO    | phishguard.eval    |    shortener          n=134  blocked=  5.2%  flagged(warn+block)= 99.3%
+01:43:17 | INFO    | phishguard.eval    |    punycode           n=38   blocked= 76.3%  flagged(warn+block)= 86.8%
+01:43:17 | INFO    | phishguard.eval    |    typosquat          n=135  blocked= 91.1%  flagged(warn+block)= 97.8%
+01:43:17 | INFO    | phishguard.eval    |    hard_clean         n=130  blocked= 93.8%  flagged(warn+block)=100.0%
+01:43:17 | INFO    | phishguard.eval    |    at_symbol          n=46   blocked=100.0%  flagged(warn+block)=100.0%
+01:43:17 | INFO    | phishguard.eval    |    brand_subdomain    n=110  blocked=100.0%  flagged(warn+block)=100.0%
+01:43:17 | INFO    | phishguard.eval    |    combosquat         n=114  blocked=100.0%  flagged(warn+block)=100.0%
+01:43:17 | INFO    | phishguard.eval    |    deep_subdomain     n=58   blocked=100.0%  flagged(warn+block)=100.0%
+01:43:17 | INFO    | phishguard.eval    |    exec_download      n=15   blocked=100.0%  flagged(warn+block)=100.0%
+01:43:17 | INFO    | phishguard.eval    |    free_hosting       n=71   blocked=100.0%  flagged(warn+block)=100.0%
+01:43:17 | INFO    | phishguard.eval    |    ip_host            n=59   blocked=100.0%  flagged(warn+block)=100.0%
+01:43:17 | INFO    | phishguard.eval    |    long_obfuscated    n=67   blocked=100.0%  flagged(warn+block)=100.0%
+01:43:17 | INFO    | phishguard.eval    |    redirect_param     n=39   blocked=100.0%  flagged(warn+block)=100.0%
+01:43:17 | INFO    | phishguard.eval    | 
+Confusion matrix (HYBRID, threshold 50) - test n=2017
+                    predicted legit   predicted phish
+actual legit             975                26
+actual phish             156               860
+
+01:43:25 | INFO    | phishguard.eval    | Average single-URL latency: 39.64 ms
+01:43:29 | INFO    | phishguard.models  | E-mail stacker coefficients: {'header_score': 6.85, 'text_prob': 6.26, 'url_max_risk': 2.8, 'link_mismatch': 0.7, 'attachment_risk': 1.69, 'n_urls': -4.72}
+01:43:29 | INFO    | phishguard.models  | E-mail model trained + saved -> email_model.joblib (3.9s)
+01:43:50 | INFO    | phishguard.eval    | === E-mail detection - held-out test set ===
+01:43:50 | INFO    | phishguard.eval    | header_rules_only    acc=0.9417 prec=0.9617 rec=0.9200 f1=0.9404 auc=0.9881 FPR=0.0367
+01:43:50 | INFO    | phishguard.eval    | text_model_only      acc=0.9783 prec=0.9965 rec=0.9600 f1=0.9779 auc=0.9964 FPR=0.0033
+01:43:50 | INFO    | phishguard.eval    | FULL PIPELINE        acc=0.9950 prec=1.0000 rec=0.9900 f1=0.9950 auc=1.0000 FPR=0.0000
+01:43:50 | INFO    | phishguard.eval    |    bec            n=47   detected=100.0%
+01:43:50 | INFO    | phishguard.eval    |    credential     n=165  detected=98.8%
+01:43:50 | INFO    | phishguard.eval    |    lure_attach    n=51   detected=100.0%
+01:43:50 | INFO    | phishguard.eval    |    prize          n=37   detected=97.3%
+01:43:50 | INFO    | phishguard.eval    | Pipeline finished in 77.4s - reports in /home/anupam/code/CyberSecurity/PhishGuard/reports

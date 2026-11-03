@@ -1,0 +1,14 @@
+01:43:57 | ERROR   | phishguard.detector | QUARANTINE email      risk=100.0  URGENT: Your PayPal account has been suspended  [spf_fail, dkim_none, dmarc_fail, reply_to_mismatch]
+
+  EMAIL URGENT: Your PayPal account has been suspended
+  risk 100.0/100 |####################| -> QUARANTINE (phishing)
+     - [spf_fail] SPF check FAILED - sending server not authorised for the domain
+     - [dkim_none] Message not DKIM-signed
+     - [dmarc_fail] DMARC alignment FAILED
+     - [reply_to_mismatch] Reply-To domain (gmail.com) differs from From domain (paypal-secure-alert.xyz)
+     - [display_name_spoof] Display name impersonates 'paypal' but is sent from paypal-secure-alert.xyz
+     - [urgency] 5 urgency / threat phrases
+     - [credential_request] 3 credential / personal-data request phrases
+     * tip: The sending server is not authorised by the domain owner - the sender is likely forged.
+     * tip: The domain owner's own policy says this message is not authentic.
+     * tip: The visible name can be anything; always inspect the actual sender address.

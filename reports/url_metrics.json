@@ -1,0 +1,201 @@
+{
+  "test_size": 2017,
+  "train_size": 5865,
+  "threshold": 50,
+  "systems": {
+    "rules_only": {
+      "accuracy": 0.6846802181457611,
+      "precision": 1.0,
+      "recall": 0.37401574803149606,
+      "f1": 0.5444126074498568,
+      "roc_auc": 0.8889540577532704,
+      "false_positive_rate": 0.0,
+      "tp": 380,
+      "fp": 0,
+      "tn": 1001,
+      "fn": 636
+    },
+    "ml_only": {
+      "accuracy": 0.9494298463063956,
+      "precision": 0.9303201506591338,
+      "recall": 0.9724409448818898,
+      "f1": 0.9509143407122232,
+      "roc_auc": 0.9867907682868312,
+      "false_positive_rate": 0.07392607392607392,
+      "tp": 988,
+      "fp": 74,
+      "tn": 927,
+      "fn": 28
+    },
+    "HYBRID (production)": {
+      "accuracy": 0.909766980664353,
+      "precision": 0.9706546275395034,
+      "recall": 0.8464566929133859,
+      "f1": 0.9043112513144059,
+      "roc_auc": 0.9876629276235576,
+      "false_positive_rate": 0.025974025974025976,
+      "tp": 860,
+      "fp": 26,
+      "tn": 975,
+      "fn": 156
+    },
+    "member:logreg": {
+      "accuracy": 0.933068914229053,
+      "precision": 0.9143932267168391,
+      "recall": 0.9566929133858267,
+      "f1": 0.935064935064935,
+      "roc_auc": 0.9465209986863531,
+      "false_positive_rate": 0.09090909090909091,
+      "tp": 972,
+      "fp": 91,
+      "tn": 910,
+      "fn": 44
+    },
+    "member:random_forest": {
+      "accuracy": 0.9122459097669806,
+      "precision": 0.9655937846836848,
+      "recall": 0.8562992125984252,
+      "f1": 0.9076682316118936,
+      "roc_auc": 0.9863384646849214,
+      "false_positive_rate": 0.030969030969030968,
+      "tp": 870,
+      "fp": 31,
+      "tn": 970,
+      "fn": 146
+    },
+    "member:grad_boost": {
+      "accuracy": 0.9400099157164105,
+      "precision": 0.9374389051808406,
+      "recall": 0.9438976377952756,
+      "f1": 0.9406571848945562,
+      "roc_auc": 0.9864131931061065,
+      "false_positive_rate": 0.06393606393606394,
+      "tp": 959,
+      "fp": 64,
+      "tn": 937,
+      "fn": 57
+    },
+    "HYBRID flagged (WARN+BLOCK)": {
+      "accuracy": 0.954387704511651,
+      "precision": 0.9238532110091743,
+      "recall": 0.9911417322834646,
+      "f1": 0.956315289648623,
+      "roc_auc": 0.9876629276235576,
+      "false_positive_rate": 0.08291708291708291,
+      "tp": 1007,
+      "fp": 83,
+      "tn": 918,
+      "fn": 9
+    }
+  },
+  "recall_by_technique": {
+    "at_symbol": {
+      "n": 46,
+      "detected": 1.0,
+      "flagged": 1.0
+    },
+    "brand_subdomain": {
+      "n": 110,
+      "detected": 1.0,
+      "flagged": 1.0
+    },
+    "combosquat": {
+      "n": 114,
+      "detected": 1.0,
+      "flagged": 1.0
+    },
+    "deep_subdomain": {
+      "n": 58,
+      "detected": 1.0,
+      "flagged": 1.0
+    },
+    "exec_download": {
+      "n": 15,
+      "detected": 1.0,
+      "flagged": 1.0
+    },
+    "free_hosting": {
+      "n": 71,
+      "detected": 1.0,
+      "flagged": 1.0
+    },
+    "hard_clean": {
+      "n": 130,
+      "detected": 0.9384615384615385,
+      "flagged": 1.0
+    },
+    "ip_host": {
+      "n": 59,
+      "detected": 1.0,
+      "flagged": 1.0
+    },
+    "long_obfuscated": {
+      "n": 67,
+      "detected": 1.0,
+      "flagged": 1.0
+    },
+    "punycode": {
+      "n": 38,
+      "detected": 0.7631578947368421,
+      "flagged": 0.868421052631579
+    },
+    "redirect_param": {
+      "n": 39,
+      "detected": 1.0,
+      "flagged": 1.0
+    },
+    "shortener": {
+      "n": 134,
+      "detected": 0.05223880597014925,
+      "flagged": 0.9925373134328358
+    },
+    "typosquat": {
+      "n": 135,
+      "detected": 0.9111111111111111,
+      "flagged": 0.9777777777777777
+    }
+  },
+  "sample_false_positives": [
+    "https://t.co/qJZ8P3s",
+    "https://t.co/RW1QQiN",
+    "https://t.co/Xiz07HZ",
+    "https://t.co/V8v9xZW",
+    "https://t.co/cCvx7p9",
+    "https://t.co/ROTlFsz",
+    "https://www.postgresql.org/category/dental",
+    "https://t.co/M47Lq6F"
+  ],
+  "feature_importances": {
+    "keyword_count": 0.17675333561799142,
+    "brand_mismatch": 0.1441948063172621,
+    "digit_ratio_host": 0.07936586516457252,
+    "path_entropy": 0.07424591218432733,
+    "is_typosquat": 0.06002773013097819,
+    "label_len": 0.05233810652634914,
+    "suspicious_tld": 0.04499188414619045,
+    "host_length": 0.041463526975533925,
+    "path_length": 0.040931613634893074,
+    "digit_ratio_url": 0.035615979049235,
+    "host_entropy": 0.03544917683603106,
+    "num_subdomains": 0.03468572352899712,
+    "url_length": 0.03196998236229313,
+    "keyword_in_host": 0.021681058518700336,
+    "num_special_chars": 0.021573409357183406,
+    "num_dots": 0.018368642544519614,
+    "num_params": 0.018019496106406633,
+    "is_https": 0.01780992430597061,
+    "is_shortener": 0.013845379016681817,
+    "num_hyphens_host": 0.01281455674288336,
+    "query_length": 0.011291406342269574,
+    "has_at_symbol": 0.0046805100817012375,
+    "embedded_url_in_query": 0.003816207355887407,
+    "has_ip_host": 0.0024474169094397054,
+    "encoded_chars": 0.0006441631566879791,
+    "has_punycode": 0.0004154398471352677,
+    "nonstandard_port": 0.0002998764338236497,
+    "exec_extension": 0.0002588708060549442,
+    "non_ascii_host": 0.0,
+    "double_slash_in_path": 0.0
+  },
+  "avg_latency_ms": 39.64
+}

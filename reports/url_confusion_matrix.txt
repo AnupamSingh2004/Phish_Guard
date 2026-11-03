@@ -1,0 +1,4 @@
+Confusion matrix (HYBRID, threshold 50) - test n=2017
+                    predicted legit   predicted phish
+actual legit             975                26
+actual phish             156               860

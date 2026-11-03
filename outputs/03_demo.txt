@@ -1,0 +1,237 @@
+
+==============================================================================
+ 1. URL SCANNING
+==============================================================================
+01:43:54 | INFO    | phishguard.detector | ALLOW      url        risk=  2.8  hxxps://www[.]wikipedia[.]org/wiki/Phishing  []
+
+  URL   hxxps://www[.]wikipedia[.]org/wiki/Phishing
+  risk   2.8/100 |                    | -> ALLOW (legitimate)
+01:43:54 | INFO    | phishguard.detector | ALLOW      url        risk=  1.1  hxxps://accounts[.]google[.]com/signin  []
+
+  URL   hxxps://accounts[.]google[.]com/signin
+  risk   1.1/100 |                    | -> ALLOW (legitimate)
+01:43:54 | INFO    | phishguard.detector | ALLOW      url        risk=  1.1  hxxps://github[.]com/python/cpython/pulls  []
+
+  URL   hxxps://github[.]com/python/cpython/pulls
+  risk   1.1/100 |                    | -> ALLOW (legitimate)
+01:43:54 | INFO    | phishguard.detector | ALLOW      url        risk=  2.9  hxxps://www[.]paypal[.]com/signin  []
+
+  URL   hxxps://www[.]paypal[.]com/signin
+  risk   2.9/100 |                    | -> ALLOW (legitimate)
+01:43:54 | ERROR   | phishguard.detector | BLOCK      url        risk= 99.4  hxxp://paypa1-secure-login[.]xyz/verify/account  [brand_mismatch, typosquat, suspicious_tld, no_https_keywords]
+
+  URL   hxxp://paypa1-secure-login[.]xyz/verify/account
+  risk  99.4/100 |################### | -> BLOCK (phishing)
+     - [brand_mismatch] Well-known brand name used on a domain the brand does not own
+     - [typosquat] Domain is a look-alike (typo / leetspeak) of a well-known brand
+     - [suspicious_tld] TLD frequently abused for phishing
+     - [no_https_keywords] Credential-style keywords over plain HTTP
+     - [many_keywords] Multiple phishing keywords (login/verify/secure/...)
+     * tip: Check the registered domain (the part just before the TLD), not the brand name in the subdomain.
+     * tip: Look closely: letters may be swapped, or '1'/'0' may replace 'l'/'o'.
+01:43:54 | ERROR   | phishguard.detector | BLOCK      url        risk= 88.3  hxxps://paypal[.]com[.]account-verify[.]top/login  [brand_mismatch, suspicious_tld, many_keywords]
+
+  URL   hxxps://paypal[.]com[.]account-verify[.]top/login
+  risk  88.3/100 |#################   | -> BLOCK (phishing)
+     - [brand_mismatch] Well-known brand name used on a domain the brand does not own
+     - [suspicious_tld] TLD frequently abused for phishing
+     - [many_keywords] Multiple phishing keywords (login/verify/secure/...)
+     * tip: Check the registered domain (the part just before the TLD), not the brand name in the subdomain.
+01:43:54 | ERROR   | phishguard.detector | BLOCK      url        risk=100.0  hxxps://www[.]paypal[.]com@evil-host[.]tk/signin  [blocklist, at_symbol, suspicious_tld]
+
+  URL   hxxps://www[.]paypal[.]com@evil-host[.]tk/signin
+  risk 100.0/100 |####################| -> BLOCK (phishing)
+     - [blocklist] Domain is on the organisation blocklist
+     - [at_symbol] '@' in the authority part hides the real destination host
+     - [suspicious_tld] TLD frequently abused for phishing
+     * tip: Everything before '@' in a URL is ignored by the browser - the real host comes after it.
+01:43:54 | ERROR   | phishguard.detector | BLOCK      url        risk= 98.5  hxxp://185[.]220[.]101[.]7:8080/chase/login[.]php  [ip_host, brand_mismatch, no_https_keywords, nonstandard_port]
+
+  URL   hxxp://185[.]220[.]101[.]7:8080/chase/login[.]php
+  risk  98.5/100 |################### | -> BLOCK (phishing)
+     - [ip_host] Host is a raw IP address instead of a domain name
+     - [brand_mismatch] Well-known brand name used on a domain the brand does not own
+     - [no_https_keywords] Credential-style keywords over plain HTTP
+     - [nonstandard_port] Non-standard port
+     * tip: Legitimate sites use domain names, not raw IP addresses.
+     * tip: Check the registered domain (the part just before the TLD), not the brand name in the subdomain.
+01:43:54 | ERROR   | phishguard.detector | BLOCK      url        risk= 92.2  hxxps://xn--pypal-4ve[.]com/signin  [punycode, brand_mismatch, hyphen_heavy_host]
+
+  URL   hxxps://xn--pypal-4ve[.]com/signin
+  risk  92.2/100 |##################  | -> BLOCK (phishing)
+     - [punycode] Punycode / non-ASCII host (possible homograph attack)
+     - [brand_mismatch] Well-known brand name used on a domain the brand does not own
+     - [hyphen_heavy_host] Three or more hyphens in host name
+     * tip: Characters from other alphabets can imitate Latin letters (homograph attack).
+     * tip: Check the registered domain (the part just before the TLD), not the brand name in the subdomain.
+01:43:54 | ERROR   | phishguard.detector | BLOCK      url        risk= 84.7  hxxps://amazon-wallet-update[.]pages[.]dev/password  [brand_mismatch, many_keywords]
+
+  URL   hxxps://amazon-wallet-update[.]pages[.]dev/password
+  risk  84.7/100 |################    | -> BLOCK (phishing)
+     - [brand_mismatch] Well-known brand name used on a domain the brand does not own
+     - [many_keywords] Multiple phishing keywords (login/verify/secure/...)
+     * tip: Check the registered domain (the part just before the TLD), not the brand name in the subdomain.
+01:43:54 | ERROR   | phishguard.detector | BLOCK      url        risk= 96.9  hxxp://x7f3k9[.]click/microsoft-update-12[.]exe  [brand_mismatch, suspicious_tld, no_https_keywords, exec_download]
+
+  URL   hxxp://x7f3k9[.]click/microsoft-update-12[.]exe
+  risk  96.9/100 |################### | -> BLOCK (phishing)
+     - [brand_mismatch] Well-known brand name used on a domain the brand does not own
+     - [suspicious_tld] TLD frequently abused for phishing
+     - [no_https_keywords] Credential-style keywords over plain HTTP
+     - [exec_download] Link points to an executable / installer file
+     * tip: Check the registered domain (the part just before the TLD), not the brand name in the subdomain.
+01:43:54 | ERROR   | phishguard.detector | BLOCK      url        risk= 93.9  hxxps://secure[.]login[.]verify[.]apple[.]k2j4h5[.]top/id  [brand_mismatch, suspicious_tld, deep_subdomains, many_keywords]
+
+  URL   hxxps://secure[.]login[.]verify[.]apple[.]k2j4h5[.]top/id
+  risk  93.9/100 |##################  | -> BLOCK (phishing)
+     - [brand_mismatch] Well-known brand name used on a domain the brand does not own
+     - [suspicious_tld] TLD frequently abused for phishing
+     - [deep_subdomains] Four or more subdomain levels
+     - [many_keywords] Multiple phishing keywords (login/verify/secure/...)
+     * tip: Check the registered domain (the part just before the TLD), not the brand name in the subdomain.
+01:43:55 | WARNING | phishguard.detector | WARN       url        risk= 47.2  hxxps://bit[.]ly/3xYz9Qa  [shortener]
+
+  URL   hxxps://bit[.]ly/3xYz9Qa
+  risk  47.2/100 |#########           | -> WARN (suspicious)
+     - [shortener] URL shortener hides the final destination
+     * tip: Shortened links hide the destination; expand them in a sandbox first.
+
+==============================================================================
+ 2. E-MAIL SCANNING (headers + text + links + attachments)
+==============================================================================
+
+  >> legit_colleague.eml
+01:43:55 | INFO    | phishguard.detector | ALLOW      email      risk=  0.4  Meeting notes - Q3 sprint review  []
+
+  EMAIL Meeting notes - Q3 sprint review
+  risk   0.4/100 |                    | -> ALLOW (legitimate)
+     auth: {'spf': 'pass', 'dkim': 'pass', 'dmarc': 'pass'}  attachments: []
+
+  >> legit_github.eml
+01:43:55 | INFO    | phishguard.detector | ALLOW      email      risk=  0.1  [python/cpython] Pull request review requested  []
+
+  EMAIL [python/cpython] Pull request review requested
+  risk   0.1/100 |                    | -> ALLOW (legitimate)
+     auth: {'spf': 'pass', 'dkim': 'pass', 'dmarc': 'pass'}  attachments: []
+
+  >> phishing_attachment.eml
+01:43:55 | ERROR   | phishguard.detector | QUARANTINE email      risk= 94.6  Invoice_4471 - payment overdue  [spf_softfail, dkim_none, dmarc_none, urgency]
+
+  EMAIL Invoice_4471 - payment overdue
+  risk  94.6/100 |##################  | -> QUARANTINE (phishing)
+     - [spf_softfail] SPF soft-fail
+     - [dkim_none] Message not DKIM-signed
+     - [dmarc_none] No DMARC policy
+     - [urgency] 2 urgency / threat phrases
+     - [generic_greeting] Generic greeting instead of your name
+     - [dangerous_attachment] Executable/dangerous attachment: Statement4471.pdf.exe
+     - [double_extension] Double extension disguises file type: Statement4471.pdf.exe
+     * tip: Pressure and deadlines are social-engineering tactics.
+     * tip: Never run executables or enable macros from unsolicited mail.
+     auth: {'spf': 'softfail', 'dkim': 'none', 'dmarc': 'none'}  attachments: ['Statement4471.pdf.exe']
+     --- sanitised body delivered to user ---
+     *** WARNING: This message was flagged by PhishGuard as a possible phishing attempt. Do not click links, open attachments or reply with credentials. ***
+     
+     Dear user, your payment of $2,310 is overdue. Open the attached statement immediately to avoid penalties.
+
+  >> phishing_bec.eml
+01:43:55 | ERROR   | phishguard.detector | QUARANTINE email      risk= 96.6  Request  [exec_freemail, urgency, financial_lure]
+
+  EMAIL Request
+  risk  96.6/100 |################### | -> QUARANTINE (phishing)
+     - [exec_freemail] Executive title used with a free-mail address (BEC pattern)
+     - [urgency] 2 urgency / threat phrases
+     - [financial_lure] Gift-card / wire-transfer / fee lure
+     * tip: Executives rarely write from free-mail accounts; verify out-of-band by phone.
+     * tip: Pressure and deadlines are social-engineering tactics.
+     * tip: Requests for gift cards or urgent wire transfers are classic BEC fraud.
+     auth: {'spf': 'pass', 'dkim': 'pass', 'dmarc': 'pass'}  attachments: []
+     --- sanitised body delivered to user ---
+     *** WARNING: This message was flagged by PhishGuard as a possible phishing attempt. Do not click links, open attachments or reply with credentials. ***
+     
+     Hi Anita,
+     
+     Please process an urgent wire transfer of $48,500 to the vendor below today. Do not discuss
+     with anyone, I'm travelling and cannot take calls. Send confirmation to my personal email.
+     
+     Michael
+     CEO
+     
+
+  >> phishing_paypal.eml
+01:43:55 | ERROR   | phishguard.detector | QUARANTINE email      risk=100.0  URGENT: Your PayPal account has been suspended  [spf_fail, dkim_none, dmarc_fail, reply_to_mismatch]
+
+  EMAIL URGENT: Your PayPal account has been suspended
+  risk 100.0/100 |####################| -> QUARANTINE (phishing)
+     - [spf_fail] SPF check FAILED - sending server not authorised for the domain
+     - [dkim_none] Message not DKIM-signed
+     - [dmarc_fail] DMARC alignment FAILED
+     - [reply_to_mismatch] Reply-To domain (gmail.com) differs from From domain (paypal-secure-alert.xyz)
+     - [display_name_spoof] Display name impersonates 'paypal' but is sent from paypal-secure-alert.xyz
+     - [urgency] 5 urgency / threat phrases
+     - [credential_request] 3 credential / personal-data request phrases
+     * tip: The sending server is not authorised by the domain owner - the sender is likely forged.
+     * tip: The domain owner's own policy says this message is not authentic.
+     * tip: The visible name can be anything; always inspect the actual sender address.
+     auth: {'spf': 'fail', 'dkim': 'none', 'dmarc': 'fail'}  attachments: []
+     --- sanitised body delivered to user ---
+     *** WARNING: This message was flagged by PhishGuard as a possible phishing attempt. Do not click links, open attachments or reply with credentials. ***
+     
+     Dear Customer,
+     
+     We detected suspicious activity on your PayPal account. Your account has been suspended.
+     You must verify your password and confirm your identity immediately or it will be
+     permanently closed within 24 hours:
+     [LINK DIS
+
+==============================================================================
+ 3. WEB-PAGE (HTML) ANALYSIS
+==============================================================================
+01:43:55 | ERROR   | phishguard.detector | BLOCK      html       risk=100.0  http://secure-paypal-login.xyz/signin  [password_field, external_form_action, insecure_form, hidden_iframe]
+
+  HTML  http://secure-paypal-login.xyz/signin
+  risk 100.0/100 |####################| -> BLOCK (phishing)
+     - [password_field] Page asks for a password
+     - [external_form_action] Form posts credentials to a different domain (evil-host.tk)
+     - [insecure_form] Password form submits over plain HTTP
+     - [hidden_iframe] Hidden iframe (drive-by / tracking)
+     - [obfuscated_js] Obfuscated JavaScript (eval/atob/unescape)
+     - [right_click_disabled] Right-click disabled to hinder inspection
+     - [meta_refresh] Automatic meta-refresh redirect
+     * tip: This page sends what you type to a different website.
+     * tip: Check the registered domain (the part just before the TLD), not the brand name in the subdomain.
+01:43:55 | INFO    | phishguard.detector | ALLOW      html       risk=  0.1  https://www.example-docs.org/  [allowlist]
+
+  HTML  https://www.example-docs.org/
+  risk   0.1/100 |                    | -> ALLOW (legitimate)
+     - [allowlist] Domain is on the trusted allowlist
+
+==============================================================================
+ 4. PREVENTION: FEEDBACK LOOP (auto-block after confirmed phishing)
+==============================================================================
+01:43:55 | ERROR   | phishguard.detector | BLOCK      url        risk= 99.9  hxxp://paypa1-secure[.]xyz/login  [brand_mismatch, typosquat, suspicious_tld, no_https_keywords]
+01:43:55 | WARNING | phishguard.prevent | Feedback loop: paypa1-secure.xyz added to blocklist
+01:43:55 | ERROR   | phishguard.detector | BLOCK      url        risk=100.0  hxxps://paypa1-secure[.]xyz/other-page  [blocklist, brand_mismatch, typosquat, suspicious_tld]
+  after blocklisting: risk=100.0 action=BLOCK reason=Domain is on the organisation blocklist
+
+==============================================================================
+ 5. REST API (live server on an ephemeral port)
+==============================================================================
+01:43:55 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "GET /health HTTP/1.1" 200 -
+  GET  /health          -> {'status': 'ok'}
+01:43:55 | ERROR   | phishguard.detector | BLOCK      url        risk= 98.5  hxxp://192[.]168[.]4[.]4:8080/paypal/login[.]php  [ip_host, brand_mismatch, no_https_keywords, nonstandard_port]
+01:43:55 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "POST /scan/url HTTP/1.1" 200 -
+  POST /scan/url        -> action=BLOCK risk=98.5 reasons=['ip_host', 'brand_mismatch', 'no_https_keywords', 'nonstandard_port']
+01:43:55 | ERROR   | phishguard.detector | QUARANTINE email      risk= 96.6  Request  [exec_freemail, urgency, financial_lure]
+01:43:55 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "POST /scan/email HTTP/1.1" 200 -
+  POST /scan/email      -> action=QUARANTINE risk=96.6
+01:43:55 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "GET /stats HTTP/1.1" 200 -
+  GET  /stats           -> {'url': 14, 'email': 6, 'html': 2, 'BLOCK': 10, 'QUARANTINE': 4, 'WARN': 1, 'ALLOW': 7}
+
+==============================================================================
+ 6. EXPLANATION LAYER (Gemini if GEMINI_API_KEY set, otherwise local)
+==============================================================================
+   Verdict PHISHING (risk 88.3/100, action BLOCK): Well-known brand name used on a domain the brand does not own; TLD frequently abused for phishing; Multiple phishing keywords (login/verify/secure/...).
+
+Session stats: {'url': 14, 'email': 6, 'html': 2, 'BLOCK': 10, 'QUARANTINE': 4, 'WARN': 1, 'ALLOW': 7}
+Audit trail: /home/anupam/code/CyberSecurity/PhishGuard/logs/audit.jsonl

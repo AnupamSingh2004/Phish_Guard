@@ -1,0 +1,476 @@
+
+[1m################################################################################
+# STEP 1/6: Environment check
+################################################################################[0m
+date     : 2026-11-04T01:42:31+05:30
+host     : Linux 7.2.10-200.fc44.x86_64 x86_64
+python   : Python 3.14.8
+sklearn  : 1.9.1 | numpy: 2.5.3 | pandas: 3.0.6
+project  : /home/anupam/code/CyberSecurity/PhishGuard
+gemini   : not set (local explanations; optional feature)
+
+[1m################################################################################
+# STEP 2/6: Generate data, train models, evaluate on held-out set
+################################################################################[0m
+01:42:35 | INFO    | phishguard.eval    | Generated 7882 URLs and 2400 e-mails (seeded, reproducible)
+01:42:35 | INFO    | phishguard.eval    | Group split by registered domain: train=5865 test=2017  overlapping domains=0 (must be 0)
+01:42:38 | INFO    | phishguard.models  | URL training set: 5865 samples x 30 features (phishing=50.5%)
+01:42:39 | INFO    | phishguard.models  |   5-fold CV F1  logreg         0.9661 +/- 0.0030
+01:42:41 | INFO    | phishguard.models  |   5-fold CV F1  random_forest  0.9922 +/- 0.0015
+01:42:45 | INFO    | phishguard.models  |   5-fold CV F1  grad_boost     0.9932 +/- 0.0027
+01:42:47 | INFO    | phishguard.models  | URL ensemble trained + saved -> url_model.joblib (11.6s)
+01:42:48 | INFO    | phishguard.eval    | === URL detection - held-out test set (unseen domains) ===
+01:42:48 | INFO    | phishguard.eval    | rules_only           acc=0.6847 prec=1.0000 rec=0.3740 f1=0.5444 auc=0.8890 FPR=0.0000
+01:42:48 | INFO    | phishguard.eval    | ml_only              acc=0.9494 prec=0.9303 rec=0.9724 f1=0.9509 auc=0.9868 FPR=0.0739
+01:42:48 | INFO    | phishguard.eval    | HYBRID (production)  acc=0.9098 prec=0.9707 rec=0.8465 f1=0.9043 auc=0.9877 FPR=0.0260
+01:43:17 | INFO    | phishguard.eval    | member:logreg        acc=0.9331 prec=0.9144 rec=0.9567 f1=0.9351 auc=0.9465 FPR=0.0909
+01:43:17 | INFO    | phishguard.eval    | member:random_forest acc=0.9122 prec=0.9656 rec=0.8563 f1=0.9077 auc=0.9863 FPR=0.0310
+01:43:17 | INFO    | phishguard.eval    | member:grad_boost    acc=0.9400 prec=0.9374 rec=0.9439 f1=0.9407 auc=0.9864 FPR=0.0639
+01:43:17 | INFO    | phishguard.eval    | HYBRID flagged>=WARN acc=0.9544 prec=0.9239 rec=0.9911 f1=0.9563 auc=0.9877 FPR=0.0829
+01:43:17 | INFO    | phishguard.eval    | Recall by attack technique:
+01:43:17 | INFO    | phishguard.eval    |    shortener          n=134  blocked=  5.2%  flagged(warn+block)= 99.3%
+01:43:17 | INFO    | phishguard.eval    |    punycode           n=38   blocked= 76.3%  flagged(warn+block)= 86.8%
+01:43:17 | INFO    | phishguard.eval    |    typosquat          n=135  blocked= 91.1%  flagged(warn+block)= 97.8%
+01:43:17 | INFO    | phishguard.eval    |    hard_clean         n=130  blocked= 93.8%  flagged(warn+block)=100.0%
+01:43:17 | INFO    | phishguard.eval    |    at_symbol          n=46   blocked=100.0%  flagged(warn+block)=100.0%
+01:43:17 | INFO    | phishguard.eval    |    brand_subdomain    n=110  blocked=100.0%  flagged(warn+block)=100.0%
+01:43:17 | INFO    | phishguard.eval    |    combosquat         n=114  blocked=100.0%  flagged(warn+block)=100.0%
+01:43:17 | INFO    | phishguard.eval    |    deep_subdomain     n=58   blocked=100.0%  flagged(warn+block)=100.0%
+01:43:17 | INFO    | phishguard.eval    |    exec_download      n=15   blocked=100.0%  flagged(warn+block)=100.0%
+01:43:17 | INFO    | phishguard.eval    |    free_hosting       n=71   blocked=100.0%  flagged(warn+block)=100.0%
+01:43:17 | INFO    | phishguard.eval    |    ip_host            n=59   blocked=100.0%  flagged(warn+block)=100.0%
+01:43:17 | INFO    | phishguard.eval    |    long_obfuscated    n=67   blocked=100.0%  flagged(warn+block)=100.0%
+01:43:17 | INFO    | phishguard.eval    |    redirect_param     n=39   blocked=100.0%  flagged(warn+block)=100.0%
+01:43:17 | INFO    | phishguard.eval    | 
+Confusion matrix (HYBRID, threshold 50) - test n=2017
+                    predicted legit   predicted phish
+actual legit             975                26
+actual phish             156               860
+
+01:43:25 | INFO    | phishguard.eval    | Average single-URL latency: 39.64 ms
+01:43:29 | INFO    | phishguard.models  | E-mail stacker coefficients: {'header_score': 6.85, 'text_prob': 6.26, 'url_max_risk': 2.8, 'link_mismatch': 0.7, 'attachment_risk': 1.69, 'n_urls': -4.72}
+01:43:29 | INFO    | phishguard.models  | E-mail model trained + saved -> email_model.joblib (3.9s)
+01:43:50 | INFO    | phishguard.eval    | === E-mail detection - held-out test set ===
+01:43:50 | INFO    | phishguard.eval    | header_rules_only    acc=0.9417 prec=0.9617 rec=0.9200 f1=0.9404 auc=0.9881 FPR=0.0367
+01:43:50 | INFO    | phishguard.eval    | text_model_only      acc=0.9783 prec=0.9965 rec=0.9600 f1=0.9779 auc=0.9964 FPR=0.0033
+01:43:50 | INFO    | phishguard.eval    | FULL PIPELINE        acc=0.9950 prec=1.0000 rec=0.9900 f1=0.9950 auc=1.0000 FPR=0.0000
+01:43:50 | INFO    | phishguard.eval    |    bec            n=47   detected=100.0%
+01:43:50 | INFO    | phishguard.eval    |    credential     n=165  detected=98.8%
+01:43:50 | INFO    | phishguard.eval    |    lure_attach    n=51   detected=100.0%
+01:43:50 | INFO    | phishguard.eval    |    prize          n=37   detected=97.3%
+01:43:50 | INFO    | phishguard.eval    | Pipeline finished in 77.4s - reports in /home/anupam/code/CyberSecurity/PhishGuard/reports
+
+[1m################################################################################
+# STEP 3/6: Test suite (unit + integration + API + model-quality gates)
+################################################################################[0m
+test_balanced (test_dataset.TestDataset.test_balanced) ... ok
+test_deterministic (test_dataset.TestDataset.test_deterministic) ... ok
+test_emails_parse (test_dataset.TestDataset.test_emails_parse) ... ok
+test_no_group_leakage (test_dataset.TestDataset.test_no_group_leakage) ... ok
+test_bad_requests (test_detector.TestAPI.test_bad_requests) ... 01:43:52 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "POST /scan/url HTTP/1.1" 400 -
+01:43:52 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "POST /scan/url HTTP/1.1" 400 -
+01:43:52 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "POST /nope HTTP/1.1" 404 -
+ok
+test_health (test_detector.TestAPI.test_health) ... 01:43:52 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "GET /health HTTP/1.1" 200 -
+ok
+test_scan_email (test_detector.TestAPI.test_scan_email) ... 01:43:52 | ERROR   | phishguard.detector | QUARANTINE email      risk= 96.6  Request  [exec_freemail, urgency, financial_lure]
+01:43:52 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "POST /scan/email HTTP/1.1" 200 -
+ok
+test_scan_html (test_detector.TestAPI.test_scan_html) ... 01:43:52 | INFO    | phishguard.detector | ALLOW      html       risk= 26.4  http://x.top/  [password_field, suspicious_tld]
+01:43:52 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "POST /scan/html HTTP/1.1" 200 -
+ok
+test_scan_url (test_detector.TestAPI.test_scan_url) ... 01:43:52 | ERROR   | phishguard.detector | BLOCK      url        risk= 95.4  hxxp://192[.]168[.]4[.]4/paypal/login[.]php  [ip_host, brand_mismatch, no_https_keywords]
+01:43:52 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "POST /scan/url HTTP/1.1" 200 -
+ok
+test_stats (test_detector.TestAPI.test_stats) ... 01:43:52 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "GET /stats HTTP/1.1" 200 -
+ok
+test_auto_block_feedback_loop (test_detector.TestDetector.test_auto_block_feedback_loop) ... 01:43:52 | WARNING | phishguard.prevent | Feedback loop: paypa1-secure-login.xyz added to blocklist
+ok
+test_blocklist_and_allowlist_override (test_detector.TestDetector.test_blocklist_and_allowlist_override) ... ok
+test_emails (test_detector.TestDetector.test_emails) ... ok
+test_html (test_detector.TestDetector.test_html) ... 01:43:52 | ERROR   | phishguard.detector | BLOCK      html       risk=100.0  http://secure-paypal-login.xyz/signin  [password_field, external_form_action, insecure_form, hidden_iframe]
+01:43:52 | INFO    | phishguard.detector | ALLOW      html       risk=  0.1  https://www.example-docs.org/  []
+ok
+test_legit_urls_allowed (test_detector.TestDetector.test_legit_urls_allowed) ... ok
+test_phishing_urls_blocked (test_detector.TestDetector.test_phishing_urls_blocked) ... ok
+test_quarantined_email_is_sanitised (test_detector.TestDetector.test_quarantined_email_is_sanitised) ... ok
+test_robust_to_junk (test_detector.TestDetector.test_robust_to_junk) ... ok
+test_shortener_warns_not_blocks (test_detector.TestDetector.test_shortener_warns_not_blocks) ... ok
+test_verdict_schema_and_defang (test_detector.TestDetector.test_verdict_schema_and_defang) ... ok
+test_attachment (test_email_analyzer.TestEmailAnalyzer.test_attachment) ... ok
+test_bec (test_email_analyzer.TestEmailAnalyzer.test_bec) ... ok
+test_legit_has_no_findings (test_email_analyzer.TestEmailAnalyzer.test_legit_has_no_findings) ... ok
+test_malformed_email_no_crash (test_email_analyzer.TestEmailAnalyzer.test_malformed_email_no_crash) ... ok
+test_missing_auth_header (test_email_analyzer.TestEmailAnalyzer.test_missing_auth_header) ... ok
+test_phishing_paypal (test_email_analyzer.TestEmailAnalyzer.test_phishing_paypal) ... ok
+test_trailing_punctuation_stripped (test_email_analyzer.TestEmailAnalyzer.test_trailing_punctuation_stripped) ... ok
+test_fake_login (test_html_analyzer.TestHtml.test_fake_login) ... ok
+test_garbage_html (test_html_analyzer.TestHtml.test_garbage_html) ... ok
+test_legit_page (test_html_analyzer.TestHtml.test_legit_page) ... ok
+test_same_domain_login_is_low (test_html_analyzer.TestHtml.test_same_domain_login_is_low) ... ok
+test_email_pipeline_gates (test_model_quality.TestQualityGates.test_email_pipeline_gates) ... ok
+test_fusion_beats_single_signals (test_model_quality.TestQualityGates.test_fusion_beats_single_signals) ... ok
+test_hybrid_beats_rules_only (test_model_quality.TestQualityGates.test_hybrid_beats_rules_only) ... ok
+test_latency (test_model_quality.TestQualityGates.test_latency) ... ok
+test_no_leakage_recorded (test_model_quality.TestQualityGates.test_no_leakage_recorded) ... ok
+test_url_flagged_recall (test_model_quality.TestQualityGates.test_url_flagged_recall) ... ok
+test_url_hybrid_gates (test_model_quality.TestQualityGates.test_url_hybrid_gates) ... ok
+test_add_block_persists_and_dedups (test_prevention.TestPrevention.test_add_block_persists_and_dedups) ... 01:43:53 | WARNING | phishguard.prevent | Feedback loop: evil.xyz added to blocklist
+ok
+test_defang (test_prevention.TestPrevention.test_defang) ... ok
+test_lists_match_registered_domain_and_subdomains (test_prevention.TestPrevention.test_lists_match_registered_domain_and_subdomains) ... ok
+test_missing_files (test_prevention.TestPrevention.test_missing_files) ... ok
+test_neutralise (test_prevention.TestPrevention.test_neutralise) ... ok
+test_policy_bands (test_prevention.TestPrevention.test_policy_bands) ... ok
+test_tips (test_prevention.TestPrevention.test_tips) ... ok
+test_userinfo_trick_cannot_borrow_allowlist (test_prevention.TestPrevention.test_userinfo_trick_cannot_borrow_allowlist) ... ok
+test_garbage_input_does_not_crash (test_url_features.TestFeatures.test_garbage_input_does_not_crash) ... ok
+test_malformed_port_does_not_crash (test_url_features.TestFeatures.test_malformed_port_does_not_crash) ... ok
+test_scheme_less_url (test_url_features.TestFeatures.test_scheme_less_url) ... ok
+test_vector_shape (test_url_features.TestFeatures.test_vector_shape) ... ok
+test_entropy (test_url_features.TestHostParsing.test_entropy) ... ok
+test_hosting_suffix (test_url_features.TestHostParsing.test_hosting_suffix) ... ok
+test_ip (test_url_features.TestHostParsing.test_ip) ... ok
+test_levenshtein (test_url_features.TestHostParsing.test_levenshtein) ... ok
+test_multi_part_suffix (test_url_features.TestHostParsing.test_multi_part_suffix) ... ok
+test_simple (test_url_features.TestHostParsing.test_simple) ... ok
+test_at_symbol_uses_real_host (test_url_features.TestRules.test_at_symbol_uses_real_host) ... ok
+test_brand_in_subdomain (test_url_features.TestRules.test_brand_in_subdomain) ... ok
+test_combosquat (test_url_features.TestRules.test_combosquat) ... ok
+test_exec (test_url_features.TestRules.test_exec) ... ok
+test_ip_host (test_url_features.TestRules.test_ip_host) ... ok
+test_legit_clean (test_url_features.TestRules.test_legit_clean) ... ok
+test_official_brand_domain_not_flagged (test_url_features.TestRules.test_official_brand_domain_not_flagged) ... ok
+test_open_redirect (test_url_features.TestRules.test_open_redirect) ... ok
+test_punycode_homoglyph (test_url_features.TestRules.test_punycode_homoglyph) ... ok
+test_score_capped (test_url_features.TestRules.test_score_capped) ... ok
+test_typosquat_leet (test_url_features.TestRules.test_typosquat_leet) ... ok
+test_typosquat_swap (test_url_features.TestRules.test_typosquat_swap) ... ok
+
+----------------------------------------------------------------------
+Ran 68 tests in 1.862s
+
+OK
+SUMMARY {"tests_run": 68, "failures": 0, "errors": 0, "skipped": 0, "passed": 68, "seconds": 1.86}
+
+[1m################################################################################
+# STEP 4/6: Live demo: URLs, e-mails, HTML pages, prevention, REST API
+################################################################################[0m
+
+==============================================================================
+ 1. URL SCANNING
+==============================================================================
+01:43:54 | INFO    | phishguard.detector | ALLOW      url        risk=  2.8  hxxps://www[.]wikipedia[.]org/wiki/Phishing  []
+
+  URL   hxxps://www[.]wikipedia[.]org/wiki/Phishing
+  risk   2.8/100 |                    | -> ALLOW (legitimate)
+01:43:54 | INFO    | phishguard.detector | ALLOW      url        risk=  1.1  hxxps://accounts[.]google[.]com/signin  []
+
+  URL   hxxps://accounts[.]google[.]com/signin
+  risk   1.1/100 |                    | -> ALLOW (legitimate)
+01:43:54 | INFO    | phishguard.detector | ALLOW      url        risk=  1.1  hxxps://github[.]com/python/cpython/pulls  []
+
+  URL   hxxps://github[.]com/python/cpython/pulls
+  risk   1.1/100 |                    | -> ALLOW (legitimate)
+01:43:54 | INFO    | phishguard.detector | ALLOW      url        risk=  2.9  hxxps://www[.]paypal[.]com/signin  []
+
+  URL   hxxps://www[.]paypal[.]com/signin
+  risk   2.9/100 |                    | -> ALLOW (legitimate)
+01:43:54 | ERROR   | phishguard.detector | BLOCK      url        risk= 99.4  hxxp://paypa1-secure-login[.]xyz/verify/account  [brand_mismatch, typosquat, suspicious_tld, no_https_keywords]
+
+  URL   hxxp://paypa1-secure-login[.]xyz/verify/account
+  risk  99.4/100 |################### | -> BLOCK (phishing)
+     - [brand_mismatch] Well-known brand name used on a domain the brand does not own
+     - [typosquat] Domain is a look-alike (typo / leetspeak) of a well-known brand
+     - [suspicious_tld] TLD frequently abused for phishing
+     - [no_https_keywords] Credential-style keywords over plain HTTP
+     - [many_keywords] Multiple phishing keywords (login/verify/secure/...)
+     * tip: Check the registered domain (the part just before the TLD), not the brand name in the subdomain.
+     * tip: Look closely: letters may be swapped, or '1'/'0' may replace 'l'/'o'.
+01:43:54 | ERROR   | phishguard.detector | BLOCK      url        risk= 88.3  hxxps://paypal[.]com[.]account-verify[.]top/login  [brand_mismatch, suspicious_tld, many_keywords]
+
+  URL   hxxps://paypal[.]com[.]account-verify[.]top/login
+  risk  88.3/100 |#################   | -> BLOCK (phishing)
+     - [brand_mismatch] Well-known brand name used on a domain the brand does not own
+     - [suspicious_tld] TLD frequently abused for phishing
+     - [many_keywords] Multiple phishing keywords (login/verify/secure/...)
+     * tip: Check the registered domain (the part just before the TLD), not the brand name in the subdomain.
+01:43:54 | ERROR   | phishguard.detector | BLOCK      url        risk=100.0  hxxps://www[.]paypal[.]com@evil-host[.]tk/signin  [blocklist, at_symbol, suspicious_tld]
+
+  URL   hxxps://www[.]paypal[.]com@evil-host[.]tk/signin
+  risk 100.0/100 |####################| -> BLOCK (phishing)
+     - [blocklist] Domain is on the organisation blocklist
+     - [at_symbol] '@' in the authority part hides the real destination host
+     - [suspicious_tld] TLD frequently abused for phishing
+     * tip: Everything before '@' in a URL is ignored by the browser - the real host comes after it.
+01:43:54 | ERROR   | phishguard.detector | BLOCK      url        risk= 98.5  hxxp://185[.]220[.]101[.]7:8080/chase/login[.]php  [ip_host, brand_mismatch, no_https_keywords, nonstandard_port]
+
+  URL   hxxp://185[.]220[.]101[.]7:8080/chase/login[.]php
+  risk  98.5/100 |################### | -> BLOCK (phishing)
+     - [ip_host] Host is a raw IP address instead of a domain name
+     - [brand_mismatch] Well-known brand name used on a domain the brand does not own
+     - [no_https_keywords] Credential-style keywords over plain HTTP
+     - [nonstandard_port] Non-standard port
+     * tip: Legitimate sites use domain names, not raw IP addresses.
+     * tip: Check the registered domain (the part just before the TLD), not the brand name in the subdomain.
+01:43:54 | ERROR   | phishguard.detector | BLOCK      url        risk= 92.2  hxxps://xn--pypal-4ve[.]com/signin  [punycode, brand_mismatch, hyphen_heavy_host]
+
+  URL   hxxps://xn--pypal-4ve[.]com/signin
+  risk  92.2/100 |##################  | -> BLOCK (phishing)
+     - [punycode] Punycode / non-ASCII host (possible homograph attack)
+     - [brand_mismatch] Well-known brand name used on a domain the brand does not own
+     - [hyphen_heavy_host] Three or more hyphens in host name
+     * tip: Characters from other alphabets can imitate Latin letters (homograph attack).
+     * tip: Check the registered domain (the part just before the TLD), not the brand name in the subdomain.
+01:43:54 | ERROR   | phishguard.detector | BLOCK      url        risk= 84.7  hxxps://amazon-wallet-update[.]pages[.]dev/password  [brand_mismatch, many_keywords]
+
+  URL   hxxps://amazon-wallet-update[.]pages[.]dev/password
+  risk  84.7/100 |################    | -> BLOCK (phishing)
+     - [brand_mismatch] Well-known brand name used on a domain the brand does not own
+     - [many_keywords] Multiple phishing keywords (login/verify/secure/...)
+     * tip: Check the registered domain (the part just before the TLD), not the brand name in the subdomain.
+01:43:54 | ERROR   | phishguard.detector | BLOCK      url        risk= 96.9  hxxp://x7f3k9[.]click/microsoft-update-12[.]exe  [brand_mismatch, suspicious_tld, no_https_keywords, exec_download]
+
+  URL   hxxp://x7f3k9[.]click/microsoft-update-12[.]exe
+  risk  96.9/100 |################### | -> BLOCK (phishing)
+     - [brand_mismatch] Well-known brand name used on a domain the brand does not own
+     - [suspicious_tld] TLD frequently abused for phishing
+     - [no_https_keywords] Credential-style keywords over plain HTTP
+     - [exec_download] Link points to an executable / installer file
+     * tip: Check the registered domain (the part just before the TLD), not the brand name in the subdomain.
+01:43:54 | ERROR   | phishguard.detector | BLOCK      url        risk= 93.9  hxxps://secure[.]login[.]verify[.]apple[.]k2j4h5[.]top/id  [brand_mismatch, suspicious_tld, deep_subdomains, many_keywords]
+
+  URL   hxxps://secure[.]login[.]verify[.]apple[.]k2j4h5[.]top/id
+  risk  93.9/100 |##################  | -> BLOCK (phishing)
+     - [brand_mismatch] Well-known brand name used on a domain the brand does not own
+     - [suspicious_tld] TLD frequently abused for phishing
+     - [deep_subdomains] Four or more subdomain levels
+     - [many_keywords] Multiple phishing keywords (login/verify/secure/...)
+     * tip: Check the registered domain (the part just before the TLD), not the brand name in the subdomain.
+01:43:55 | WARNING | phishguard.detector | WARN       url        risk= 47.2  hxxps://bit[.]ly/3xYz9Qa  [shortener]
+
+  URL   hxxps://bit[.]ly/3xYz9Qa
+  risk  47.2/100 |#########           | -> WARN (suspicious)
+     - [shortener] URL shortener hides the final destination
+     * tip: Shortened links hide the destination; expand them in a sandbox first.
+
+==============================================================================
+ 2. E-MAIL SCANNING (headers + text + links + attachments)
+==============================================================================
+
+  >> legit_colleague.eml
+01:43:55 | INFO    | phishguard.detector | ALLOW      email      risk=  0.4  Meeting notes - Q3 sprint review  []
+
+  EMAIL Meeting notes - Q3 sprint review
+  risk   0.4/100 |                    | -> ALLOW (legitimate)
+     auth: {'spf': 'pass', 'dkim': 'pass', 'dmarc': 'pass'}  attachments: []
+
+  >> legit_github.eml
+01:43:55 | INFO    | phishguard.detector | ALLOW      email      risk=  0.1  [python/cpython] Pull request review requested  []
+
+  EMAIL [python/cpython] Pull request review requested
+  risk   0.1/100 |                    | -> ALLOW (legitimate)
+     auth: {'spf': 'pass', 'dkim': 'pass', 'dmarc': 'pass'}  attachments: []
+
+  >> phishing_attachment.eml
+01:43:55 | ERROR   | phishguard.detector | QUARANTINE email      risk= 94.6  Invoice_4471 - payment overdue  [spf_softfail, dkim_none, dmarc_none, urgency]
+
+  EMAIL Invoice_4471 - payment overdue
+  risk  94.6/100 |##################  | -> QUARANTINE (phishing)
+     - [spf_softfail] SPF soft-fail
+     - [dkim_none] Message not DKIM-signed
+     - [dmarc_none] No DMARC policy
+     - [urgency] 2 urgency / threat phrases
+     - [generic_greeting] Generic greeting instead of your name
+     - [dangerous_attachment] Executable/dangerous attachment: Statement4471.pdf.exe
+     - [double_extension] Double extension disguises file type: Statement4471.pdf.exe
+     * tip: Pressure and deadlines are social-engineering tactics.
+     * tip: Never run executables or enable macros from unsolicited mail.
+     auth: {'spf': 'softfail', 'dkim': 'none', 'dmarc': 'none'}  attachments: ['Statement4471.pdf.exe']
+     --- sanitised body delivered to user ---
+     *** WARNING: This message was flagged by PhishGuard as a possible phishing attempt. Do not click links, open attachments or reply with credentials. ***
+     
+     Dear user, your payment of $2,310 is overdue. Open the attached statement immediately to avoid penalties.
+
+  >> phishing_bec.eml
+01:43:55 | ERROR   | phishguard.detector | QUARANTINE email      risk= 96.6  Request  [exec_freemail, urgency, financial_lure]
+
+  EMAIL Request
+  risk  96.6/100 |################### | -> QUARANTINE (phishing)
+     - [exec_freemail] Executive title used with a free-mail address (BEC pattern)
+     - [urgency] 2 urgency / threat phrases
+     - [financial_lure] Gift-card / wire-transfer / fee lure
+     * tip: Executives rarely write from free-mail accounts; verify out-of-band by phone.
+     * tip: Pressure and deadlines are social-engineering tactics.
+     * tip: Requests for gift cards or urgent wire transfers are classic BEC fraud.
+     auth: {'spf': 'pass', 'dkim': 'pass', 'dmarc': 'pass'}  attachments: []
+     --- sanitised body delivered to user ---
+     *** WARNING: This message was flagged by PhishGuard as a possible phishing attempt. Do not click links, open attachments or reply with credentials. ***
+     
+     Hi Anita,
+     
+     Please process an urgent wire transfer of $48,500 to the vendor below today. Do not discuss
+     with anyone, I'm travelling and cannot take calls. Send confirmation to my personal email.
+     
+     Michael
+     CEO
+     
+
+  >> phishing_paypal.eml
+01:43:55 | ERROR   | phishguard.detector | QUARANTINE email      risk=100.0  URGENT: Your PayPal account has been suspended  [spf_fail, dkim_none, dmarc_fail, reply_to_mismatch]
+
+  EMAIL URGENT: Your PayPal account has been suspended
+  risk 100.0/100 |####################| -> QUARANTINE (phishing)
+     - [spf_fail] SPF check FAILED - sending server not authorised for the domain
+     - [dkim_none] Message not DKIM-signed
+     - [dmarc_fail] DMARC alignment FAILED
+     - [reply_to_mismatch] Reply-To domain (gmail.com) differs from From domain (paypal-secure-alert.xyz)
+     - [display_name_spoof] Display name impersonates 'paypal' but is sent from paypal-secure-alert.xyz
+     - [urgency] 5 urgency / threat phrases
+     - [credential_request] 3 credential / personal-data request phrases
+     * tip: The sending server is not authorised by the domain owner - the sender is likely forged.
+     * tip: The domain owner's own policy says this message is not authentic.
+     * tip: The visible name can be anything; always inspect the actual sender address.
+     auth: {'spf': 'fail', 'dkim': 'none', 'dmarc': 'fail'}  attachments: []
+     --- sanitised body delivered to user ---
+     *** WARNING: This message was flagged by PhishGuard as a possible phishing attempt. Do not click links, open attachments or reply with credentials. ***
+     
+     Dear Customer,
+     
+     We detected suspicious activity on your PayPal account. Your account has been suspended.
+     You must verify your password and confirm your identity immediately or it will be
+     permanently closed within 24 hours:
+     [LINK DIS
+
+==============================================================================
+ 3. WEB-PAGE (HTML) ANALYSIS
+==============================================================================
+01:43:55 | ERROR   | phishguard.detector | BLOCK      html       risk=100.0  http://secure-paypal-login.xyz/signin  [password_field, external_form_action, insecure_form, hidden_iframe]
+
+  HTML  http://secure-paypal-login.xyz/signin
+  risk 100.0/100 |####################| -> BLOCK (phishing)
+     - [password_field] Page asks for a password
+     - [external_form_action] Form posts credentials to a different domain (evil-host.tk)
+     - [insecure_form] Password form submits over plain HTTP
+     - [hidden_iframe] Hidden iframe (drive-by / tracking)
+     - [obfuscated_js] Obfuscated JavaScript (eval/atob/unescape)
+     - [right_click_disabled] Right-click disabled to hinder inspection
+     - [meta_refresh] Automatic meta-refresh redirect
+     * tip: This page sends what you type to a different website.
+     * tip: Check the registered domain (the part just before the TLD), not the brand name in the subdomain.
+01:43:55 | INFO    | phishguard.detector | ALLOW      html       risk=  0.1  https://www.example-docs.org/  [allowlist]
+
+  HTML  https://www.example-docs.org/
+  risk   0.1/100 |                    | -> ALLOW (legitimate)
+     - [allowlist] Domain is on the trusted allowlist
+
+==============================================================================
+ 4. PREVENTION: FEEDBACK LOOP (auto-block after confirmed phishing)
+==============================================================================
+01:43:55 | ERROR   | phishguard.detector | BLOCK      url        risk= 99.9  hxxp://paypa1-secure[.]xyz/login  [brand_mismatch, typosquat, suspicious_tld, no_https_keywords]
+01:43:55 | WARNING | phishguard.prevent | Feedback loop: paypa1-secure.xyz added to blocklist
+01:43:55 | ERROR   | phishguard.detector | BLOCK      url        risk=100.0  hxxps://paypa1-secure[.]xyz/other-page  [blocklist, brand_mismatch, typosquat, suspicious_tld]
+  after blocklisting: risk=100.0 action=BLOCK reason=Domain is on the organisation blocklist
+
+==============================================================================
+ 5. REST API (live server on an ephemeral port)
+==============================================================================
+01:43:55 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "GET /health HTTP/1.1" 200 -
+  GET  /health          -> {'status': 'ok'}
+01:43:55 | ERROR   | phishguard.detector | BLOCK      url        risk= 98.5  hxxp://192[.]168[.]4[.]4:8080/paypal/login[.]php  [ip_host, brand_mismatch, no_https_keywords, nonstandard_port]
+01:43:55 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "POST /scan/url HTTP/1.1" 200 -
+  POST /scan/url        -> action=BLOCK risk=98.5 reasons=['ip_host', 'brand_mismatch', 'no_https_keywords', 'nonstandard_port']
+01:43:55 | ERROR   | phishguard.detector | QUARANTINE email      risk= 96.6  Request  [exec_freemail, urgency, financial_lure]
+01:43:55 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "POST /scan/email HTTP/1.1" 200 -
+  POST /scan/email      -> action=QUARANTINE risk=96.6
+01:43:55 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "GET /stats HTTP/1.1" 200 -
+  GET  /stats           -> {'url': 14, 'email': 6, 'html': 2, 'BLOCK': 10, 'QUARANTINE': 4, 'WARN': 1, 'ALLOW': 7}
+
+==============================================================================
+ 6. EXPLANATION LAYER (Gemini if GEMINI_API_KEY set, otherwise local)
+==============================================================================
+   Verdict PHISHING (risk 88.3/100, action BLOCK): Well-known brand name used on a domain the brand does not own; TLD frequently abused for phishing; Multiple phishing keywords (login/verify/secure/...).
+
+Session stats: {'url': 14, 'email': 6, 'html': 2, 'BLOCK': 10, 'QUARANTINE': 4, 'WARN': 1, 'ALLOW': 7}
+Audit trail: /home/anupam/code/CyberSecurity/PhishGuard/logs/audit.jsonl
+
+[1m################################################################################
+# STEP 5/6: CLI examples
+################################################################################[0m
+01:43:56 | ERROR   | phishguard.detector | BLOCK      url        risk= 99.7  hxxp://paypa1-secure-login[.]xyz/verify  [brand_mismatch, typosquat, suspicious_tld, no_https_keywords]
+
+  URL   hxxp://paypa1-secure-login[.]xyz/verify
+  risk  99.7/100 |################### | -> BLOCK (phishing)
+     - [brand_mismatch] Well-known brand name used on a domain the brand does not own
+     - [typosquat] Domain is a look-alike (typo / leetspeak) of a well-known brand
+     - [suspicious_tld] TLD frequently abused for phishing
+     - [no_https_keywords] Credential-style keywords over plain HTTP
+     - [many_keywords] Multiple phishing keywords (login/verify/secure/...)
+     * tip: Check the registered domain (the part just before the TLD), not the brand name in the subdomain.
+     * tip: Look closely: letters may be swapped, or '1'/'0' may replace 'l'/'o'.
+01:43:56 | INFO    | phishguard.detector | ALLOW      url        risk=  0.2  hxxps://www[.]github[.]com/  []
+
+  URL   hxxps://www[.]github[.]com/
+  risk   0.2/100 |                    | -> ALLOW (legitimate)
+01:43:57 | ERROR   | phishguard.detector | QUARANTINE email      risk=100.0  URGENT: Your PayPal account has been suspended  [spf_fail, dkim_none, dmarc_fail, reply_to_mismatch]
+
+  EMAIL URGENT: Your PayPal account has been suspended
+  risk 100.0/100 |####################| -> QUARANTINE (phishing)
+     - [spf_fail] SPF check FAILED - sending server not authorised for the domain
+     - [dkim_none] Message not DKIM-signed
+     - [dmarc_fail] DMARC alignment FAILED
+     - [reply_to_mismatch] Reply-To domain (gmail.com) differs from From domain (paypal-secure-alert.xyz)
+     - [display_name_spoof] Display name impersonates 'paypal' but is sent from paypal-secure-alert.xyz
+     - [urgency] 5 urgency / threat phrases
+     - [credential_request] 3 credential / personal-data request phrases
+     * tip: The sending server is not authorised by the domain owner - the sender is likely forged.
+     * tip: The domain owner's own policy says this message is not authentic.
+     * tip: The visible name can be anything; always inspect the actual sender address.
+
+[1m################################################################################
+# STEP 6/6: Artifacts
+################################################################################[0m
+--- reports/ ---
+email_confusion_matrix.txt
+email_metrics.json
+email_roc.svg
+test_results.json
+url_confusion_matrix.txt
+url_feature_importance.svg
+url_metrics.json
+url_roc.svg
+--- outputs/ ---
+01_train_and_evaluate.txt
+02_tests.txt
+03_demo.txt
+04_cli_scan_url.txt
+05_cli_scan_email.txt
+--- logs/ ---
+-rw-r--r--. 1 anupam anupam  6377 Nov  4 01:43 audit.jsonl
+-rw-r--r--. 1 anupam anupam 12408 Nov  4 01:43 phishguard.log
+-rw-r--r--. 1 anupam anupam 32158 Nov  4 01:43 run_all.log
+-rw-r--r--. 1 anupam anupam  5733 Nov  4 01:43 tests.log
+--- audit trail (last 5 of 30 events) ---
+{"ts": "2026-11-04T01:43:55+0530", "event": "scan", "type": "url", "target": "hxxp://192[.]168[.]4[.]4:8080/paypal/login[.]php", "risk": 98.5, "action": "BLOCK", "reasons": ["ip_host", "brand_mismatch
+{"ts": "2026-11-04T01:43:55+0530", "event": "scan", "type": "email", "target": "Request", "risk": 96.6, "action": "QUARANTINE", "reasons": ["exec_freemail", "urgency", "financial_lure"]}
+{"ts": "2026-11-04T01:43:56+0530", "event": "scan", "type": "url", "target": "hxxp://paypa1-secure-login[.]xyz/verify", "risk": 99.7, "action": "BLOCK", "reasons": ["brand_mismatch", "typosquat", "sus
+{"ts": "2026-11-04T01:43:56+0530", "event": "scan", "type": "url", "target": "hxxps://www[.]github[.]com/", "risk": 0.2, "action": "ALLOW", "reasons": []}
+{"ts": "2026-11-04T01:43:57+0530", "event": "scan", "type": "email", "target": "URGENT: Your PayPal account has been suspended", "risk": 100.0, "action": "QUARANTINE", "reasons": ["spf_fail", "dkim_no
+
+Confusion matrix (HYBRID, threshold 50) - test n=2017
+                    predicted legit   predicted phish
+actual legit             975                26
+actual phish             156               860
+Confusion matrix (full pipeline) - test n=600
+  TN=300 FP=0
+  FN=3 TP=297
+--- test summary ---
+{
+  "tests_run": 68,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "passed": 68,
+  "seconds": 1.86
+}
+[32m[1mALL STEPS COMPLETE - ALL TESTS PASSED[0m (total 87s)

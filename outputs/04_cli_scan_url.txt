@@ -1,0 +1,15 @@
+01:43:56 | ERROR   | phishguard.detector | BLOCK      url        risk= 99.7  hxxp://paypa1-secure-login[.]xyz/verify  [brand_mismatch, typosquat, suspicious_tld, no_https_keywords]
+
+  URL   hxxp://paypa1-secure-login[.]xyz/verify
+  risk  99.7/100 |################### | -> BLOCK (phishing)
+     - [brand_mismatch] Well-known brand name used on a domain the brand does not own
+     - [typosquat] Domain is a look-alike (typo / leetspeak) of a well-known brand
+     - [suspicious_tld] TLD frequently abused for phishing
+     - [no_https_keywords] Credential-style keywords over plain HTTP
+     - [many_keywords] Multiple phishing keywords (login/verify/secure/...)
+     * tip: Check the registered domain (the part just before the TLD), not the brand name in the subdomain.
+     * tip: Look closely: letters may be swapped, or '1'/'0' may replace 'l'/'o'.
+01:43:56 | INFO    | phishguard.detector | ALLOW      url        risk=  0.2  hxxps://www[.]github[.]com/  []
+
+  URL   hxxps://www[.]github[.]com/
+  risk   0.2/100 |                    | -> ALLOW (legitimate)

@@ -1,0 +1,94 @@
+2026-11-04 01:42:35,924 | INFO    | phishguard.eval    | Generated 7882 URLs and 2400 e-mails (seeded, reproducible)
+2026-11-04 01:42:35,933 | INFO    | phishguard.eval    | Group split by registered domain: train=5865 test=2017  overlapping domains=0 (must be 0)
+2026-11-04 01:42:38,979 | INFO    | phishguard.models  | URL training set: 5865 samples x 30 features (phishing=50.5%)
+2026-11-04 01:42:39,072 | INFO    | phishguard.models  |   5-fold CV F1  logreg         0.9661 +/- 0.0030
+2026-11-04 01:42:41,114 | INFO    | phishguard.models  |   5-fold CV F1  random_forest  0.9922 +/- 0.0015
+2026-11-04 01:42:45,896 | INFO    | phishguard.models  |   5-fold CV F1  grad_boost     0.9932 +/- 0.0027
+2026-11-04 01:42:47,520 | INFO    | phishguard.models  | URL ensemble trained + saved -> url_model.joblib (11.6s)
+2026-11-04 01:42:48,566 | INFO    | phishguard.eval    | === URL detection - held-out test set (unseen domains) ===
+2026-11-04 01:42:48,574 | INFO    | phishguard.eval    | rules_only           acc=0.6847 prec=1.0000 rec=0.3740 f1=0.5444 auc=0.8890 FPR=0.0000
+2026-11-04 01:42:48,581 | INFO    | phishguard.eval    | ml_only              acc=0.9494 prec=0.9303 rec=0.9724 f1=0.9509 auc=0.9868 FPR=0.0739
+2026-11-04 01:42:48,587 | INFO    | phishguard.eval    | HYBRID (production)  acc=0.9098 prec=0.9707 rec=0.8465 f1=0.9043 auc=0.9877 FPR=0.0260
+2026-11-04 01:43:17,819 | INFO    | phishguard.eval    | member:logreg        acc=0.9331 prec=0.9144 rec=0.9567 f1=0.9351 auc=0.9465 FPR=0.0909
+2026-11-04 01:43:17,875 | INFO    | phishguard.eval    | member:random_forest acc=0.9122 prec=0.9656 rec=0.8563 f1=0.9077 auc=0.9863 FPR=0.0310
+2026-11-04 01:43:17,888 | INFO    | phishguard.eval    | member:grad_boost    acc=0.9400 prec=0.9374 rec=0.9439 f1=0.9407 auc=0.9864 FPR=0.0639
+2026-11-04 01:43:17,897 | INFO    | phishguard.eval    | HYBRID flagged>=WARN acc=0.9544 prec=0.9239 rec=0.9911 f1=0.9563 auc=0.9877 FPR=0.0829
+2026-11-04 01:43:17,900 | INFO    | phishguard.eval    | Recall by attack technique:
+2026-11-04 01:43:17,900 | INFO    | phishguard.eval    |    shortener          n=134  blocked=  5.2%  flagged(warn+block)= 99.3%
+2026-11-04 01:43:17,900 | INFO    | phishguard.eval    |    punycode           n=38   blocked= 76.3%  flagged(warn+block)= 86.8%
+2026-11-04 01:43:17,900 | INFO    | phishguard.eval    |    typosquat          n=135  blocked= 91.1%  flagged(warn+block)= 97.8%
+2026-11-04 01:43:17,900 | INFO    | phishguard.eval    |    hard_clean         n=130  blocked= 93.8%  flagged(warn+block)=100.0%
+2026-11-04 01:43:17,900 | INFO    | phishguard.eval    |    at_symbol          n=46   blocked=100.0%  flagged(warn+block)=100.0%
+2026-11-04 01:43:17,900 | INFO    | phishguard.eval    |    brand_subdomain    n=110  blocked=100.0%  flagged(warn+block)=100.0%
+2026-11-04 01:43:17,900 | INFO    | phishguard.eval    |    combosquat         n=114  blocked=100.0%  flagged(warn+block)=100.0%
+2026-11-04 01:43:17,900 | INFO    | phishguard.eval    |    deep_subdomain     n=58   blocked=100.0%  flagged(warn+block)=100.0%
+2026-11-04 01:43:17,900 | INFO    | phishguard.eval    |    exec_download      n=15   blocked=100.0%  flagged(warn+block)=100.0%
+2026-11-04 01:43:17,900 | INFO    | phishguard.eval    |    free_hosting       n=71   blocked=100.0%  flagged(warn+block)=100.0%
+2026-11-04 01:43:17,900 | INFO    | phishguard.eval    |    ip_host            n=59   blocked=100.0%  flagged(warn+block)=100.0%
+2026-11-04 01:43:17,900 | INFO    | phishguard.eval    |    long_obfuscated    n=67   blocked=100.0%  flagged(warn+block)=100.0%
+2026-11-04 01:43:17,900 | INFO    | phishguard.eval    |    redirect_param     n=39   blocked=100.0%  flagged(warn+block)=100.0%
+2026-11-04 01:43:17,901 | INFO    | phishguard.eval    | 
+Confusion matrix (HYBRID, threshold 50) - test n=2017
+                    predicted legit   predicted phish
+actual legit             975                26
+actual phish             156               860
+
+2026-11-04 01:43:25,840 | INFO    | phishguard.eval    | Average single-URL latency: 39.64 ms
+2026-11-04 01:43:29,701 | INFO    | phishguard.models  | E-mail stacker coefficients: {'header_score': 6.85, 'text_prob': 6.26, 'url_max_risk': 2.8, 'link_mismatch': 0.7, 'attachment_risk': 1.69, 'n_urls': -4.72}
+2026-11-04 01:43:29,709 | INFO    | phishguard.models  | E-mail model trained + saved -> email_model.joblib (3.9s)
+2026-11-04 01:43:50,589 | INFO    | phishguard.eval    | === E-mail detection - held-out test set ===
+2026-11-04 01:43:50,596 | INFO    | phishguard.eval    | header_rules_only    acc=0.9417 prec=0.9617 rec=0.9200 f1=0.9404 auc=0.9881 FPR=0.0367
+2026-11-04 01:43:50,602 | INFO    | phishguard.eval    | text_model_only      acc=0.9783 prec=0.9965 rec=0.9600 f1=0.9779 auc=0.9964 FPR=0.0033
+2026-11-04 01:43:50,608 | INFO    | phishguard.eval    | FULL PIPELINE        acc=0.9950 prec=1.0000 rec=0.9900 f1=0.9950 auc=1.0000 FPR=0.0000
+2026-11-04 01:43:50,610 | INFO    | phishguard.eval    |    bec            n=47   detected=100.0%
+2026-11-04 01:43:50,610 | INFO    | phishguard.eval    |    credential     n=165  detected=98.8%
+2026-11-04 01:43:50,610 | INFO    | phishguard.eval    |    lure_attach    n=51   detected=100.0%
+2026-11-04 01:43:50,610 | INFO    | phishguard.eval    |    prize          n=37   detected=97.3%
+2026-11-04 01:43:50,613 | INFO    | phishguard.eval    | Pipeline finished in 77.4s - reports in /home/anupam/code/CyberSecurity/PhishGuard/reports
+2026-11-04 01:43:52,057 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "POST /scan/url HTTP/1.1" 400 -
+2026-11-04 01:43:52,058 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "POST /scan/url HTTP/1.1" 400 -
+2026-11-04 01:43:52,059 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "POST /nope HTTP/1.1" 404 -
+2026-11-04 01:43:52,060 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "GET /health HTTP/1.1" 200 -
+2026-11-04 01:43:52,072 | ERROR   | phishguard.detector | QUARANTINE email      risk= 96.6  Request  [exec_freemail, urgency, financial_lure]
+2026-11-04 01:43:52,072 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "POST /scan/email HTTP/1.1" 200 -
+2026-11-04 01:43:52,089 | INFO    | phishguard.detector | ALLOW      html       risk= 26.4  http://x.top/  [password_field, suspicious_tld]
+2026-11-04 01:43:52,089 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "POST /scan/html HTTP/1.1" 200 -
+2026-11-04 01:43:52,110 | ERROR   | phishguard.detector | BLOCK      url        risk= 95.4  hxxp://192[.]168[.]4[.]4/paypal/login[.]php  [ip_host, brand_mismatch, no_https_keywords]
+2026-11-04 01:43:52,110 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "POST /scan/url HTTP/1.1" 200 -
+2026-11-04 01:43:52,111 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "GET /stats HTTP/1.1" 200 -
+2026-11-04 01:43:52,754 | WARNING | phishguard.prevent | Feedback loop: paypa1-secure-login.xyz added to blocklist
+2026-11-04 01:43:52,917 | ERROR   | phishguard.detector | BLOCK      html       risk=100.0  http://secure-paypal-login.xyz/signin  [password_field, external_form_action, insecure_form, hidden_iframe]
+2026-11-04 01:43:52,932 | INFO    | phishguard.detector | ALLOW      html       risk=  0.1  https://www.example-docs.org/  []
+2026-11-04 01:43:53,358 | WARNING | phishguard.prevent | Feedback loop: evil.xyz added to blocklist
+2026-11-04 01:43:54,818 | INFO    | phishguard.detector | ALLOW      url        risk=  2.8  hxxps://www[.]wikipedia[.]org/wiki/Phishing  []
+2026-11-04 01:43:54,833 | INFO    | phishguard.detector | ALLOW      url        risk=  1.1  hxxps://accounts[.]google[.]com/signin  []
+2026-11-04 01:43:54,847 | INFO    | phishguard.detector | ALLOW      url        risk=  1.1  hxxps://github[.]com/python/cpython/pulls  []
+2026-11-04 01:43:54,862 | INFO    | phishguard.detector | ALLOW      url        risk=  2.9  hxxps://www[.]paypal[.]com/signin  []
+2026-11-04 01:43:54,879 | ERROR   | phishguard.detector | BLOCK      url        risk= 99.4  hxxp://paypa1-secure-login[.]xyz/verify/account  [brand_mismatch, typosquat, suspicious_tld, no_https_keywords]
+2026-11-04 01:43:54,894 | ERROR   | phishguard.detector | BLOCK      url        risk= 88.3  hxxps://paypal[.]com[.]account-verify[.]top/login  [brand_mismatch, suspicious_tld, many_keywords]
+2026-11-04 01:43:54,909 | ERROR   | phishguard.detector | BLOCK      url        risk=100.0  hxxps://www[.]paypal[.]com@evil-host[.]tk/signin  [blocklist, at_symbol, suspicious_tld]
+2026-11-04 01:43:54,925 | ERROR   | phishguard.detector | BLOCK      url        risk= 98.5  hxxp://185[.]220[.]101[.]7:8080/chase/login[.]php  [ip_host, brand_mismatch, no_https_keywords, nonstandard_port]
+2026-11-04 01:43:54,941 | ERROR   | phishguard.detector | BLOCK      url        risk= 92.2  hxxps://xn--pypal-4ve[.]com/signin  [punycode, brand_mismatch, hyphen_heavy_host]
+2026-11-04 01:43:54,957 | ERROR   | phishguard.detector | BLOCK      url        risk= 84.7  hxxps://amazon-wallet-update[.]pages[.]dev/password  [brand_mismatch, many_keywords]
+2026-11-04 01:43:54,972 | ERROR   | phishguard.detector | BLOCK      url        risk= 96.9  hxxp://x7f3k9[.]click/microsoft-update-12[.]exe  [brand_mismatch, suspicious_tld, no_https_keywords, exec_download]
+2026-11-04 01:43:54,986 | ERROR   | phishguard.detector | BLOCK      url        risk= 93.9  hxxps://secure[.]login[.]verify[.]apple[.]k2j4h5[.]top/id  [brand_mismatch, suspicious_tld, deep_subdomains, many_keywords]
+2026-11-04 01:43:55,000 | WARNING | phishguard.detector | WARN       url        risk= 47.2  hxxps://bit[.]ly/3xYz9Qa  [shortener]
+2026-11-04 01:43:55,004 | INFO    | phishguard.detector | ALLOW      email      risk=  0.4  Meeting notes - Q3 sprint review  []
+2026-11-04 01:43:55,021 | INFO    | phishguard.detector | ALLOW      email      risk=  0.1  [python/cpython] Pull request review requested  []
+2026-11-04 01:43:55,024 | ERROR   | phishguard.detector | QUARANTINE email      risk= 94.6  Invoice_4471 - payment overdue  [spf_softfail, dkim_none, dmarc_none, urgency]
+2026-11-04 01:43:55,026 | ERROR   | phishguard.detector | QUARANTINE email      risk= 96.6  Request  [exec_freemail, urgency, financial_lure]
+2026-11-04 01:43:55,047 | ERROR   | phishguard.detector | QUARANTINE email      risk=100.0  URGENT: Your PayPal account has been suspended  [spf_fail, dkim_none, dmarc_fail, reply_to_mismatch]
+2026-11-04 01:43:55,063 | ERROR   | phishguard.detector | BLOCK      html       risk=100.0  http://secure-paypal-login.xyz/signin  [password_field, external_form_action, insecure_form, hidden_iframe]
+2026-11-04 01:43:55,079 | INFO    | phishguard.detector | ALLOW      html       risk=  0.1  https://www.example-docs.org/  [allowlist]
+2026-11-04 01:43:55,096 | ERROR   | phishguard.detector | BLOCK      url        risk= 99.9  hxxp://paypa1-secure[.]xyz/login  [brand_mismatch, typosquat, suspicious_tld, no_https_keywords]
+2026-11-04 01:43:55,096 | WARNING | phishguard.prevent | Feedback loop: paypa1-secure.xyz added to blocklist
+2026-11-04 01:43:55,113 | ERROR   | phishguard.detector | BLOCK      url        risk=100.0  hxxps://paypa1-secure[.]xyz/other-page  [blocklist, brand_mismatch, typosquat, suspicious_tld]
+2026-11-04 01:43:55,118 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "GET /health HTTP/1.1" 200 -
+2026-11-04 01:43:55,138 | ERROR   | phishguard.detector | BLOCK      url        risk= 98.5  hxxp://192[.]168[.]4[.]4:8080/paypal/login[.]php  [ip_host, brand_mismatch, no_https_keywords, nonstandard_port]
+2026-11-04 01:43:55,138 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "POST /scan/url HTTP/1.1" 200 -
+2026-11-04 01:43:55,144 | ERROR   | phishguard.detector | QUARANTINE email      risk= 96.6  Request  [exec_freemail, urgency, financial_lure]
+2026-11-04 01:43:55,144 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "POST /scan/email HTTP/1.1" 200 -
+2026-11-04 01:43:55,145 | INFO    | phishguard.api     | HTTP 127.0.0.1 - "GET /stats HTTP/1.1" 200 -
+2026-11-04 01:43:56,824 | ERROR   | phishguard.detector | BLOCK      url        risk= 99.7  hxxp://paypa1-secure-login[.]xyz/verify  [brand_mismatch, typosquat, suspicious_tld, no_https_keywords]
+2026-11-04 01:43:56,839 | INFO    | phishguard.detector | ALLOW      url        risk=  0.2  hxxps://www[.]github[.]com/  []
+2026-11-04 01:43:57,994 | ERROR   | phishguard.detector | QUARANTINE email      risk=100.0  URGENT: Your PayPal account has been suspended  [spf_fail, dkim_none, dmarc_fail, reply_to_mismatch]
