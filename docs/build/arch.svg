@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="520" font-family="Arial" font-size="22">
+<rect width="1400" height="520" fill="#ffffff"/>
+<g text-anchor="middle">
+<rect x="20" y="30" width="250" height="50" fill="#17293F"/><text x="145" y="64" fill="#fff" font-weight="bold">INPUTS</text>
+<rect x="320" y="30" width="330" height="50" fill="#0F7F74"/><text x="485" y="64" fill="#fff" font-weight="bold">ANALYSIS</text>
+<rect x="700" y="30" width="310" height="50" fill="#1FA99B"/><text x="855" y="64" fill="#fff" font-weight="bold">MACHINE LEARNING</text>
+<rect x="1060" y="30" width="320" height="50" fill="#F25C54"/><text x="1220" y="64" fill="#fff" font-weight="bold">PREVENTION</text>
+</g>
+<g font-size="20" text-anchor="middle" fill="#1B2A3C">
+<rect x="20" y="100" width="250" height="110" fill="#F4F7FA" stroke="#9fb0c3"/><text x="145" y="162">URL</text>
+<rect x="20" y="230" width="250" height="110" fill="#F4F7FA" stroke="#9fb0c3"/><text x="145" y="292">E-mail (.eml)</text>
+<rect x="20" y="360" width="250" height="110" fill="#F4F7FA" stroke="#9fb0c3"/><text x="145" y="422">HTML page</text>
+<rect x="320" y="100" width="330" height="110" fill="#F4F7FA" stroke="#9fb0c3"/><text x="485" y="148">30 URL features</text><text x="485" y="178">+ 16 weighted rules</text>
+<rect x="320" y="230" width="330" height="110" fill="#F4F7FA" stroke="#9fb0c3"/><text x="485" y="278">Headers, text, links,</text><text x="485" y="308">attachments forensics</text>
+<rect x="320" y="360" width="330" height="110" fill="#F4F7FA" stroke="#9fb0c3"/><text x="485" y="408">Forms, iframes, scripts,</text><text x="485" y="438">redirect checks</text>
+<rect x="700" y="100" width="310" height="110" fill="#F4F7FA" stroke="#9fb0c3"/><text x="855" y="148">LogReg + RandomForest</text><text x="855" y="178">+ GradBoost (soft vote)</text>
+<rect x="700" y="230" width="310" height="110" fill="#F4F7FA" stroke="#9fb0c3"/><text x="855" y="278">TF-IDF text classifier</text><text x="855" y="308">+ logistic stacker</text>
+<rect x="700" y="360" width="310" height="110" fill="#F4F7FA" stroke="#9fb0c3"/><text x="855" y="408">Page score + URL risk</text><text x="855" y="438">(rule based)</text>
+<rect x="1060" y="100" width="320" height="110" fill="#F4F7FA" stroke="#9fb0c3"/><text x="1220" y="148">Allow / block lists</text><text x="1220" y="178">override</text>
+<rect x="1060" y="230" width="320" height="110" fill="#F4F7FA" stroke="#9fb0c3"/><text x="1220" y="278">Policy: ALLOW / WARN /</text><text x="1220" y="308">BLOCK or QUARANTINE</text>
+<rect x="1060" y="360" width="320" height="110" fill="#F4F7FA" stroke="#9fb0c3"/><text x="1220" y="408">Neutralise links, audit log,</text><text x="1220" y="438">REST API, feedback loop</text>
+</g>
+<g fill="#5B6B7F" font-size="34" text-anchor="middle"><text x="295" y="290">&#9654;</text><text x="675" y="290">&#9654;</text><text x="1035" y="290">&#9654;</text></g>
+</svg>
