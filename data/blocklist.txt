@@ -1,0 +1,2 @@
+# Known-bad registered domains (threat-intel feed / SOC additions)
+evil-host.tk

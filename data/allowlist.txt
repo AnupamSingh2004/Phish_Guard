@@ -1,0 +1,3 @@
+# Trusted registered domains (one per line)
+example-docs.org
+company-example.com
