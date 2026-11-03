@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+node_modules/
+docs/build/img/
+.venv/
+.DS_Store
