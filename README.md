@@ -5,7 +5,7 @@ verdict, and **prevents** harm (block / warn / quarantine, link neutralisation, 
 feedback loop, audit trail and a REST API). Pure Python; no network access is needed to scan anything.
 
 > **Run everything with one command:** `./scripts/run_all.sh` (≈90 s). It checks the environment, generates data,
-> trains and evaluates the models, runs 68 tests, runs a live demo of every feature, and saves all output to
+> trains and evaluates the models, runs 75 tests, runs a live demo of every feature, and saves all output to
 > `logs/` and `outputs/`.
 
 ---------------------------------------------------------------------------------------------------------------
@@ -50,7 +50,7 @@ pip install -r requirements.txt          # scikit-learn, numpy, pandas, joblib
 # or individually (from this folder):
 export PYTHONPATH=src
 python3 -m phishguard train              # data + models + reports
-python3 tests/run_tests.py               # 68 tests
+python3 tests/run_tests.py               # 75 tests
 python3 -m phishguard demo               # live showcase
 python3 -m phishguard scan-url "http://paypa1-secure-login.xyz/verify"
 python3 -m phishguard scan-email samples/phishing_paypal.eml
@@ -110,7 +110,7 @@ Charts: [`reports/url_roc.svg`](reports/url_roc.svg), [`reports/url_feature_impo
 
 ## 4. Tests (`outputs/02_tests.txt`, `logs/tests.log`, `reports/test_results.json`)
 
-**68 tests, 68 passed, 0 failed, 0 skipped** (≈2 s):
+**75 tests, 75 passed, 0 failed, 0 skipped** (≈2 s):
 
 | File | Covers |
 |---|---|
@@ -118,6 +118,7 @@ Charts: [`reports/url_roc.svg`](reports/url_roc.svg), [`reports/url_feature_impo
 | `test_email_analyzer.py` | SPF/DKIM/DMARC parsing, Reply-To mismatch, display-name spoof, BEC, double extension, link mismatch, malformed mail |
 | `test_html_analyzer.py` | fake login page hits 8 indicators; clean page scores 0; same-domain login stays low |
 | `test_prevention.py` | list matching (incl. `good.com@bad.top` cannot borrow allowlist trust), persistence, policy bands, defang, neutralise |
+| `test_inspector.py` | the interactive step-by-step tool: URL / e-mail / HTML / batch / error handling |
 | `test_dataset.py` | determinism, balance, **no train/test domain leakage**, generated e-mails parse |
 | `test_detector.py` | end-to-end verdicts, schema, overrides, feedback loop, sanitised bodies, **REST API** (200/400/404 paths) |
 | `test_model_quality.py` | **quality gates** that fail the build on regression (AUC ≥ 0.97, precision ≥ 0.94, FPR ≤ 5 %, e-mail F1 ≥ 0.95, hybrid ≫ rules, fusion ≥ single signals, latency) |
@@ -177,7 +178,7 @@ fallback mode in this build.
 PhishGuard/
 ├── scripts/run_all.sh        # one-command full run (logs everything)
 ├── src/phishguard/           # the package (see §1)
-├── tests/                    # 68 tests + run_tests.py (writes logs/tests.log)
+├── tests/                    # 75 tests + run_tests.py (writes logs/tests.log)
 ├── samples/                  # .eml / .html / urls.txt used by tests and demo
 ├── data/                     # generated datasets, allow/block lists
 ├── models/                   # trained joblib models
