@@ -1,0 +1,16 @@
+From: "Display Name Here" <sender@example-domain.com>
+To: you@example.org
+Reply-To: someone@gmail.com
+Subject: Type your own subject here
+Date: Tue, 17 Nov 2026 10:00:00 +0000
+Message-ID: <custom1@example-domain.com>
+Authentication-Results: mx.example.org; spf=fail smtp.mailfrom=example-domain.com; dkim=none; dmarc=fail header.from=example-domain.com
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+
+Dear Customer,
+
+Write your own message body here. Try adding urgent wording such as "verify your password
+immediately or your account will be closed" and a link like http://secure-login-check.xyz/verify
+
+Edit the Authentication-Results line (spf=pass; dkim=pass; dmarc=pass) to see how the score changes.

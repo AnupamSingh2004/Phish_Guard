@@ -59,6 +59,21 @@ python3 -m phishguard serve --port 8765  # REST API
 curl -s localhost:8765/scan/url -d '{"url":"http://192.168.4.4/paypal/login.php"}'
 ```
 
+## 2b. Try your own inputs (custom tests)
+
+```bash
+./scripts/try_it.sh                                  # interactive prompt
+./scripts/try_it.sh http://paypa1-secure.xyz/login   # one URL, every step shown
+./scripts/try_it.sh my_mail.eml                      # an e-mail file
+./scripts/try_it.sh page.html --url http://x.top/login
+```
+
+Inside the interactive prompt (`phishguard>`) just type a URL, or: `email <file.eml>`, `html <file.html> [url]`,
+`batch <urls.txt>`, `samples`, `stats`, `help`, `quit`. For each input it prints the parsed host, all 30 features,
+the rules that fired, each ML model's vote, the risk-score arithmetic and the final action.
+To test your own e-mail, copy `samples/templates/my_email_template.eml`, edit the sender, the
+`Authentication-Results` line, the body and links, and run `./scripts/try_it.sh your_file.eml`.
+
 ## 3. Results (from `outputs/01_train_and_evaluate.txt`)
 
 Evaluated on a **held-out test set whose registered domains never appear in training** (checked by an assertion:

@@ -82,6 +82,9 @@ def main(argv=None):
     s = sub.add_parser("scan-html"); s.add_argument("file"); s.add_argument("--url", default="")
     s = sub.add_parser("serve"); s.add_argument("--port", type=int, default=8765)
     sub.add_parser("demo", help="run every feature on the bundled samples")
+    s = sub.add_parser("analyze", help="verbose step-by-step analysis of URLs / .eml / .html files")
+    s.add_argument("targets", nargs="+"); s.add_argument("--url", default="", help="page address when analysing an .html file")
+    sub.add_parser("interactive", help="prompt where you type your own URLs / e-mails / pages")
     a = ap.parse_args(argv)
 
     if a.cmd == "train":
@@ -92,7 +95,14 @@ def main(argv=None):
         return cmd_demo(a) or 0
     from .detector import PhishGuard
     pg = PhishGuard()
-    if a.cmd == "scan-url":
+    if a.cmd == "interactive":
+        from .inspector import repl
+        repl(pg)
+    elif a.cmd == "analyze":
+        from .inspector import handle
+        for t in a.targets:
+            handle(pg, f"html {t} {a.url}" if t.endswith((".html", ".htm")) and a.url else t)
+    elif a.cmd == "scan-url":
         for u in a.url:
             _show(pg.scan_url(u))
     elif a.cmd == "scan-email":
